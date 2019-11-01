@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>搭对bus余票查询</title>
+</head>
+<body>
+<h1>搭对bus余票查询</h1>
+</body>
+<script>
+    /**
+     * 通过Html调用显示系统通知
+     * @param title
+     * @param msg
+     * @param imgUrl
+     */
+    function showNotification(title,msg,imgUrl){
+        var Notification = window.Notification || window.mozNotification || window.webkitNotification;
+        // 判断浏览器是否支持桌面通知
+        if(Notification){
+            Notification.requestPermission(function(result){
+                //result 默认值'default'等同于拒绝 'denied' -用户选择了拒绝 'granted' -用户同意启用通知
+                console.log(result);
+                if("granted" != result){
+                    alert('请授权浏览器能够进行通知!');
+                    return false;
+                }else{
+                    var tag = "sds"+Math.random();
+                    var notify = new Notification(
+                        title,
+                        {
+                            dir:'auto',
+                            lang:'zh-CN',
+                            tag:tag,//实例化的notification的id
+                            icon:imgUrl,//通知的缩略图,icon 支持ico、png、jpg、jpeg格式
+                            title:title, //通知的标题
+                            body:msg //通知的具体内容
+                        }
+                    );
+                    // 定义通知窗口点击函数
+                    notify.οnclick=function(){
+                        //如果通知消息被点击,通知窗口将被激活
+                        window.focus();
+                    };
+                    // 定义通知错误事件
+                    notify.onerror = function () {
+                        // console.log("");
+                    };
+                    // 定义通知显示事件 可以设置多少秒之后关闭 也可以不设置关闭
+                    notify.onshow = function () {
+                        // 窗口显示 播放音频
+                        // var audio = new Audio("./10418.wav");
+                        // audio.play();
+                        // 窗口显示3S后关闭
+                        setTimeout(function(){
+                            notify.close();
+                        },3000);
+                    };
+                    // 定义通知关闭事件
+                    notify.onclose = function () {
+
+                    };
+                }
+            });
+        }else{
+            // 提示不支持系统通知
+            alert('您的浏览器不支持系统通知,建议使用Chrome浏览');
+        }
+    }
+
+    /* 封装ajax函数
+ * @param {string}opt.type http连接的方式，包括POST和GET两种方式
+ * @param {string}opt.url 发送请求的url
+ * @param {boolean}opt.async 是否为异步请求，true为异步的，false为同步的
+ * @param {object}opt.data 发送的参数，格式为对象类型
+ * @param {function}opt.success ajax发送并接收成功调用的回调函数
+ */
+    function ajax(opt) {
+        opt = opt || {};
+        opt.method = opt.method.toUpperCase() || 'POST';
+        opt.url = opt.url || '';
+        opt.async = opt.async || true;
+        opt.data = opt.data || null;
+        opt.success = opt.success || function () {};
+        var xmlHttp = null;
+        if (XMLHttpRequest) {
+            xmlHttp = new XMLHttpRequest();
+        }
+        else {
+            xmlHttp = new ActiveXObject('Microsoft.XMLHTTP');
+        }var params = [];
+        for (var key in opt.data){
+            params.push(key + '=' + opt.data[key]);
+        }
+        var postData = params.join('&');
+        if (opt.method.toUpperCase() === 'POST') {
+            xmlHttp.open(opt.method, opt.url, opt.async);
+            xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
+            xmlHttp.send(postData);
+        }
+        else if (opt.method.toUpperCase() === 'GET') {
+            xmlHttp.open(opt.method, opt.url + '?' + postData, opt.async);
+            xmlHttp.send(null);
+        }
+        xmlHttp.onreadystatechange = function () {
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                opt.success(JSON.parse( xmlHttp.responseText));//如果不是json数据可以去掉json转换
+            }
+        };
+    }
+
+    //十秒请求一次查询，有票就提示
+    setInterval(function() {
+        ajax({
+            method: 'POST',
+            url: "{:url('index/bus/ask')}",
+            success: function (data) {
+                //在这里对获取的数据经常操作
+                console.log('');
+                if (data.status == 1 || data.status == -1) {
+                    showNotification('系统通知', data.msg, '');
+                }
+            }
+        });
+    }, 10000);
+</script>
+</html>
