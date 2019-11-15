@@ -3,10 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="static/Hplus/css/bootstrap.min.css?" rel="stylesheet">
+    <link href="static/Hplus/css/font-awesome.css" rel="stylesheet">
+    <link href="static/Hplus/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="static/Hplus/css/animate.css" rel="stylesheet">
+    <link href="static/Hplus/css/style.css" rel="stylesheet">
+
+    <style>
+        body {
+            text-align: center
+        }
+
+        .divCss {
+            margin: 100px auto;
+            border: 1px dotted #8B91A0;
+            width: 1000px;
+            height: 600px;
+            padding: 50px;
+        }
+        .font-start {
+            height: 50px;
+            line-height: 35px;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
-<ul>
-    <li><a href="{:url('index/bus/index')}">搭对巴士查询</a></li>
-</ul>
+<div class="divCss">
+    <div>
+        <div class="col-sm-2 font-start">
+            <span>出发城市</span>
+        </div>
+
+        <div class="col-sm-2">
+            <select class="form-control m-b" id="cityStart">
+                {foreach $citySelect as $key=>$vo }
+                <option>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+
+        <div class="col-sm-2 font-start">
+            <span>站点</span>
+        </div>
+
+        <div class="col-sm-4">
+            <select class="form-control m-b" id="stationStart">
+
+            </select>
+        </div>
+
+
+    </div>
+</div>
+
+<!--<ul>-->
+<!--    <li><a href="{:url('index/bus/index')}">搭对巴士查询</a></li>-->
+<!--</ul>-->
 </body>
 </html>
+
+<script>
+    alert(232323);
+    var cityStartOption = document.getElementById("cityStart");
+    var index = cityStartOption.selectedIndex;
+    var cityStart = cityStartOption.options[index].text;
+
+    // var cityStationArr = [];
+    // console.log(cityStationArr)
+    // d1.insertAdjacentHTML('afterend', '<option></option>');
+
+</script>
