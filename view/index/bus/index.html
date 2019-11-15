@@ -6,11 +6,66 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>搭对bus余票查询</title>
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="/static/Hplus/css/bootstrap.min.css?" rel="stylesheet">
+    <link href="/static/Hplus/css/font-awesome.css" rel="stylesheet">
+    <link href="/static/Hplus/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="/static/Hplus/css/animate.css" rel="stylesheet">
+    <link href="/static/Hplus/css/style.css" rel="stylesheet">
+
+    <style>
+        body {
+            text-align: center
+        }
+
+        .divCss {
+            margin: 100px auto;
+            border: 1px dotted #8B91A0;
+            width: 1000px;
+            height: 600px;
+            padding: 50px;
+        }
+        .font-start {
+            height: 50px;
+            line-height: 35px;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
-<h1>搭对bus余票查询:</h1>
-<h2 id="result">开始查询</h2>
+<div class="divCss">
+    <div>
+        <div class="col-sm-2 font-start">
+            <span>出发城市</span>
+        </div>
+
+        <div class="col-sm-2">
+            <select class="form-control m-b" id="cityStart">
+                {foreach $citySelect as $key=>$vo }
+                <option>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+
+        <div class="col-sm-2 font-start">
+            <span>站点</span>
+        </div>
+
+        <div class="col-sm-4">
+            <select class="form-control m-b" id="stationStart">
+
+            </select>
+        </div>
+
+
+    </div>
+</div>
+<!--<h1>搭对bus余票查询:</h1>-->
+<!--<h2 id="result">开始查询</h2>-->
 </body>
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
     /**
      * 通过Html调用显示系统通知
@@ -133,5 +188,28 @@
             }
         });
     }, 10000);
+
+    $(function(){
+        var cityStartOption = document.getElementById("cityStart");
+        var index = cityStartOption.selectedIndex;
+        var cityStart = cityStartOption.options[index].text;
+
+        var cityStationArr = {$stationSelect|raw};
+        var d1 = document.getElementById('stationStart');
+        for (var i=0; i < cityStationArr[cityStart].length; i++) {
+            var station = cityStationArr[cityStart][i];
+            d1.insertAdjacentHTML('beforeend', '<option>' + station + '</option>');
+        }
+    });
+
+    $('#cityStart').change(function() {
+        var cityStart = $("#cityStart").find("option:selected").text();
+        var cityStationArr = {$stationSelect|raw};
+        for (var i=0; i < cityStationArr[cityStart].length; i++) {
+            var station = cityStationArr[cityStart][i];
+            $('#stationStart').append('<option>' + station + '</option>');
+        }
+    })
+
 </script>
 </html>
