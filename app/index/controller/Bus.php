@@ -6,6 +6,7 @@ use think\facade\Request;
 use think\facade\View;
 
 class Bus extends BaseController
+
 {
     public function index()
     {
