@@ -13,6 +13,37 @@
     <link href="/static/Hplus/css/plugins/iCheck/custom.css" rel="stylesheet">
     <link href="/static/Hplus/css/animate.css" rel="stylesheet">
     <link href="/static/Hplus/css/style.css" rel="stylesheet">
+    <link href="/static/Hplus/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+    <link href="/static/Hplus/css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
+
+    <link href="/static/Hplus/css/bootstrap.min.css?" rel="stylesheet">
+    <link href="/static/Hplus/css/font-awesome.css" rel="stylesheet">
+
+    <link href="/static/Hplus/css/plugins/iCheck/custom.css" rel="stylesheet">
+
+    <link href="/static/Hplus/css/plugins/chosen/chosen.css" rel="stylesheet">
+
+    <link href="/static/Hplus/css/plugins/colorpicker/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+
+    <link href="/static/Hplus/css/plugins/cropper/cropper.min.css" rel="stylesheet">
+
+    <link href="/static/Hplus/css/plugins/switchery/switchery.css" rel="stylesheet">
+
+    <link href="/static/Hplus/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
+
+    <link href="/static/Hplus/css/plugins/nouslider/jquery.nouislider.css" rel="stylesheet">
+
+    <link href="/static/Hplus/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+
+    <link href="/static/Hplus/css/plugins/ionRangeSlider/ion.rangeSlider.css" rel="stylesheet">
+    <link href="/static/Hplus/css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css" rel="stylesheet">
+
+    <link href="/static/Hplus/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+
+    <link href="/static/Hplus/css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
+
+    <link href="/static/Hplus/css/animate.css" rel="stylesheet">
+    <link href="/static/Hplus/css/style.css" rel="stylesheet">
 
     <style>
         body {
@@ -26,6 +57,10 @@
             height: 600px;
             padding: 50px;
         }
+
+        .divSelect{
+            height: 50px;
+        }
         .font-start {
             height: 50px;
             line-height: 35px;
@@ -35,13 +70,13 @@
 </head>
 <body>
 <div class="divCss">
-    <div>
+    <div class="divSelect">
         <div class="col-sm-2 font-start">
             <span>出发城市</span>
         </div>
 
         <div class="col-sm-2">
-            <select class="form-control m-b" id="cityStart">
+            <select class="form-control m-b" id="cityStart" onchange="startCityChange()">
                 {foreach $citySelect as $key=>$vo }
                 <option>{$vo}</option>
                 {/foreach}
@@ -57,16 +92,88 @@
 
             </select>
         </div>
+    </div>
+
+    <div class="divSelect">
+        <div class="col-sm-2 font-start">
+            <span>到达城市</span>
+        </div>
+
+        <div class="col-sm-2">
+            <select class="form-control m-b" id="endStart" onchange="endCityChange()">
+                {foreach $citySelect as $key=>$vo }
+                <option>{$vo}</option>
+                {/foreach}
+            </select>
+        </div>
+
+        <div class="col-sm-2 font-start">
+            <span>站点</span>
+        </div>
+
+        <div class="col-sm-4">
+            <select class="form-control m-b" id="stationEnd">
+
+            </select>
+        </div>
+    </div>
+
+    <div class="divSelect">
+        <div class="col-sm-2 font-start">
+            <span>查询日期</span>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="form-group" id="data_1">
+                <div class="input-group date">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    <input type="text" class="form-control" value="">
+                </div>
+            </div>
+        </div>
+    </div>
 
 
+
+    <div style="float: right">
+        <button type="button" class="btn btn-w-m btn-primary" onclick="searchBug()">查询车次</button>
     </div>
 </div>
-<!--<h1>搭对bus余票查询:</h1>-->
-<!--<h2 id="result">开始查询</h2>-->
 </body>
+<!-- 全局js -->
+<script src="/static/Hplus/js/jquery.min.js"></script>
+<script src="/static/Hplus/js/bootstrap.min.js?"></script>
+<!-- 自定义js -->
+<script src="/static/Hplus/js/content.js"></script>
+<!-- Data picker -->
+<script src="/static/Hplus/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+<!-- Color picker -->
+<script src="/static/Hplus/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+<!-- Clock picker -->
+<script src="/static/Hplus/js/plugins/clockpicker/clockpicker.js"></script>
+<!-- Chosen -->
+<script src="/static/Hplus/js/plugins/chosen/chosen.jquery.js"></script>
+<!-- JSKnob -->
+<script src="/static/Hplus/js/plugins/jsKnob/jquery.knob.js"></script>
+<!-- Input Mask-->
+<script src="/static/Hplus/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+<!-- Prettyfile -->
+<script src="/static/Hplus/js/plugins/prettyfile/bootstrap-prettyfile.js"></script>
+<!-- NouSlider -->
+<script src="/static/Hplus/js/plugins/nouslider/jquery.nouislider.min.js"></script>
+<!-- Switchery -->
+<script src="/static/Hplus/js/plugins/switchery/switchery.js"></script>
+<!-- IonRangeSlider -->
+<script src="/static/Hplus/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
+<!-- iCheck -->
+<script src="/static/Hplus/js/plugins/iCheck/icheck.min.js"></script>
+<!-- MENU -->
+<script src="/static/Hplus/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<!--&lt;!&ndash; Image cropper &ndash;&gt;-->
+<script src="/static/Hplus/js/plugins/cropper/cropper.min.js"></script>
 
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<script>
+<script src="/static/Hplus/js/demo/form-advanced-demo.js"></script>
+<script type="javascript">
     /**
      * 通过Html调用显示系统通知
      * @param title
@@ -175,41 +282,54 @@
     }
 
     //十秒请求一次查询，有票就提示
-    setInterval(function() {
-        ajax({
-            method: 'POST',
-            url: "{:url('index/bus/ask')}",
-            success: function (data) {
-                //在这里对获取的数据经常操作
-                writeResult(data.msg);
-                if (data.status == 1 || data.status == -1) {
-                    showNotification('系统通知', data.msg, '');
-                }
-            }
-        });
-    }, 10000);
+    // setInterval(function() {
+    //     ajax({
+    //         method: 'POST',
+    //         url: "{:url('index/bus/ask')}",
+    //         success: function (data) {
+    //             //在这里对获取的数据经常操作
+    //             writeResult(data.msg);
+    //             if (data.status == 1 || data.status == -1) {
+    //                 showNotification('系统通知', data.msg, '');
+    //             }
+    //         }
+    //     });
+    // }, 10000);
 
-    $(function(){
-        var cityStartOption = document.getElementById("cityStart");
-        var index = cityStartOption.selectedIndex;
-        var cityStart = cityStartOption.options[index].text;
-
+    // 出发城市选择
+    function startCityChange() {
+        var city = $("#cityStart").find("option:selected").text();
         var cityStationArr = {$stationSelect|raw};
-        var d1 = document.getElementById('stationStart');
-        for (var i=0; i < cityStationArr[cityStart].length; i++) {
-            var station = cityStationArr[cityStart][i];
-            d1.insertAdjacentHTML('beforeend', '<option>' + station + '</option>');
+
+        var string = '';
+        for (var i=0; i < cityStationArr[city].length; i++) {
+            string += '<option>' + cityStationArr[city][i] + '</option>'
         }
+        $('#stationStart').html(string);
+    }
+
+    // 到达城市选择
+    function endCityChange() {
+        var city = $("#endStart").find("option:selected").text();
+        var cityStationArr = {$stationSelect|raw};
+
+        var string = '';
+        for (var i=0; i < cityStationArr[city].length; i++) {
+            string += '<option>' + cityStationArr[city][i] + '</option>'
+        }
+        $('#stationEnd').html(string);
+    }
+
+    // 查询车次
+    function searchBug() {
+
+    }
+
+    $(function() {
+        console.log(1212);
+        startCityChange();
+        endCityChange();
     });
-
-    $('#cityStart').change(function() {
-        var cityStart = $("#cityStart").find("option:selected").text();
-        var cityStationArr = {$stationSelect|raw};
-        for (var i=0; i < cityStationArr[cityStart].length; i++) {
-            var station = cityStationArr[cityStart][i];
-            $('#stationStart').append('<option>' + station + '</option>');
-        }
-    })
 
 </script>
 </html>
