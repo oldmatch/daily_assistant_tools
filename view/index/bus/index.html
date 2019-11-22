@@ -19,28 +19,9 @@
     <link href="/static/Hplus/css/bootstrap.min.css?" rel="stylesheet">
     <link href="/static/Hplus/css/font-awesome.css" rel="stylesheet">
 
-    <link href="/static/Hplus/css/plugins/iCheck/custom.css" rel="stylesheet">
-
-    <link href="/static/Hplus/css/plugins/chosen/chosen.css" rel="stylesheet">
-
-    <link href="/static/Hplus/css/plugins/colorpicker/css/bootstrap-colorpicker.min.css" rel="stylesheet">
-
-    <link href="/static/Hplus/css/plugins/cropper/cropper.min.css" rel="stylesheet">
-
-    <link href="/static/Hplus/css/plugins/switchery/switchery.css" rel="stylesheet">
-
     <link href="/static/Hplus/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
 
-    <link href="/static/Hplus/css/plugins/nouslider/jquery.nouislider.css" rel="stylesheet">
-
     <link href="/static/Hplus/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
-
-    <link href="/static/Hplus/css/plugins/ionRangeSlider/ion.rangeSlider.css" rel="stylesheet">
-    <link href="/static/Hplus/css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css" rel="stylesheet">
-
-    <link href="/static/Hplus/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
-
-    <link href="/static/Hplus/css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
 
     <link href="/static/Hplus/css/animate.css" rel="stylesheet">
     <link href="/static/Hplus/css/style.css" rel="stylesheet">
@@ -133,8 +114,6 @@
         </div>
     </div>
 
-
-
     <div style="float: right">
         <button type="button" class="btn btn-w-m btn-primary" onclick="searchBug()">查询车次</button>
     </div>
@@ -145,35 +124,21 @@
 <script src="/static/Hplus/js/bootstrap.min.js?"></script>
 <!-- 自定义js -->
 <script src="/static/Hplus/js/content.js"></script>
-<!-- Data picker -->
-<script src="/static/Hplus/js/plugins/datapicker/bootstrap-datepicker.js"></script>
-<!-- Color picker -->
-<script src="/static/Hplus/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-<!-- Clock picker -->
-<script src="/static/Hplus/js/plugins/clockpicker/clockpicker.js"></script>
+
 <!-- Chosen -->
 <script src="/static/Hplus/js/plugins/chosen/chosen.jquery.js"></script>
+
 <!-- JSKnob -->
 <script src="/static/Hplus/js/plugins/jsKnob/jquery.knob.js"></script>
+
 <!-- Input Mask-->
 <script src="/static/Hplus/js/plugins/jasny/jasny-bootstrap.min.js"></script>
-<!-- Prettyfile -->
-<script src="/static/Hplus/js/plugins/prettyfile/bootstrap-prettyfile.js"></script>
-<!-- NouSlider -->
-<script src="/static/Hplus/js/plugins/nouslider/jquery.nouislider.min.js"></script>
-<!-- Switchery -->
-<script src="/static/Hplus/js/plugins/switchery/switchery.js"></script>
-<!-- IonRangeSlider -->
-<script src="/static/Hplus/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
-<!-- iCheck -->
-<script src="/static/Hplus/js/plugins/iCheck/icheck.min.js"></script>
-<!-- MENU -->
-<script src="/static/Hplus/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-<!--&lt;!&ndash; Image cropper &ndash;&gt;-->
-<script src="/static/Hplus/js/plugins/cropper/cropper.min.js"></script>
 
-<script src="/static/Hplus/js/demo/form-advanced-demo.js"></script>
-<script type="javascript">
+<!-- Data picker -->
+<script src="/static/Hplus/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+
+<script type="text/javascript">
     /**
      * 通过Html调用显示系统通知
      * @param title
@@ -235,12 +200,12 @@
     }
 
     /* 封装ajax函数
- * @param {string}opt.type http连接的方式，包括POST和GET两种方式
- * @param {string}opt.url 发送请求的url
- * @param {boolean}opt.async 是否为异步请求，true为异步的，false为同步的
- * @param {object}opt.data 发送的参数，格式为对象类型
- * @param {function}opt.success ajax发送并接收成功调用的回调函数
- */
+    * @param {string}opt.type http连接的方式，包括POST和GET两种方式
+    * @param {string}opt.url 发送请求的url
+    * @param {boolean}opt.async 是否为异步请求，true为异步的，false为同步的
+    * @param {object}opt.data 发送的参数，格式为对象类型
+    * @param {function}opt.success ajax发送并接收成功调用的回调函数
+    */
     function ajax(opt) {
         opt = opt || {};
         opt.method = opt.method.toUpperCase() || 'POST';
@@ -324,12 +289,19 @@
     function searchBug() {
 
     }
-
-    $(function() {
-        console.log(1212);
+    $(document).ready(function () {
+        $('#data_1 .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true
+        });
         startCityChange();
         endCityChange();
-    });
+    })
+</script>
+<script>
 
 </script>
 </html>
