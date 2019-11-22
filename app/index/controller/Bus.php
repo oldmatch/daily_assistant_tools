@@ -21,6 +21,7 @@ class Bus extends BaseController
             '广州市' => [],
         ];
         View::assign('citySelect', $citySelect);
+        View::assign('today', date('Y-m-d'));
         View::assign('stationSelect', json_encode($stationSelect, 256));
         return View::fetch('index');
     }
@@ -49,14 +50,14 @@ class Bus extends BaseController
             $data = http_build_query($data);
             $res = curlRequest('https://passenger.wyebus.com/api/v2/passenger/plan/intercity/page', 'post', $data, $header);
             $res = json_decode($res, true);
-//            $res = end($res['data']['pageEntity']['list']);
-            return json($res);
-            if (!empty($res['surplus'])) {
-                $res = ['status' => 1, 'msg' => '有票了。。。。。。。' . $res['station']];
-            } else {
-                $res = ['status' => 0, 'msg' => '没票啊' . date('Y-m-d H:i:s')];
+            $data = ['status' => 0, 'msg' => '查无数据'];
+            if (!empty($res['code']) && !empty($res['data']['pageEntity']['list'])) {
+                $data = [
+                    'status' => 1,
+                    'data' => $res['data']['pageEntity']['list'],
+                ];
             }
-            return json($res);
+            return json($data);
         } catch (\Exception $e) {
             $res = ['status' => -1, 'msg' => $e->getMessage()];
             return json($res);

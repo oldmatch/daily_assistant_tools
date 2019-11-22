@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -26,6 +25,8 @@
     <link href="/static/Hplus/css/animate.css" rel="stylesheet">
     <link href="/static/Hplus/css/style.css" rel="stylesheet">
 
+    <link href="/static/Hplus/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+
     <style>
         body {
             text-align: center
@@ -39,13 +40,18 @@
             padding: 50px;
         }
 
-        .divSelect{
+        .divSelect {
             height: 50px;
         }
+
         .font-start {
             height: 50px;
             line-height: 35px;
             font-size: 18px;
+        }
+
+        .ibox-content {
+            margin-top: 50px;
         }
     </style>
 </head>
@@ -81,7 +87,7 @@
         </div>
 
         <div class="col-sm-2">
-            <select class="form-control m-b" id="endStart" onchange="endCityChange()">
+            <select class="form-control m-b" id="cityEnd" onchange="endCityChange()">
                 {foreach $citySelect as $key=>$vo }
                 <option>{$vo}</option>
                 {/foreach}
@@ -108,7 +114,7 @@
             <div class="form-group" id="data_1">
                 <div class="input-group date">
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                    <input type="text" class="form-control" value="">
+                    <input type="text" class="form-control" value="{$today}" name="schDate">
                 </div>
             </div>
         </div>
@@ -117,6 +123,44 @@
     <div style="float: right">
         <button type="button" class="btn btn-w-m btn-primary" onclick="searchBug()">查询车次</button>
     </div>
+
+    <div class="ibox-content">
+        <div class="row">
+            <div class="col-md-12">
+                <fieldset id="bug-radio">
+<!--                    <div class="radio radio-info radio-inline">-->
+<!--                        <input type="radio" id="inlineRadio1" value="option1" name="radioInline" >-->
+<!--                        <label for="inlineRadio1"> 选项 01 </label>-->
+<!--                    </div>-->
+
+<!--                    <div class="radio radio-info radio-inline">-->
+<!--                        <input type="radio" id="inlineRadio2" value="option1" name="radioInline" >-->
+<!--                        <label for="inlineRadio2"> 选项 01 </label>-->
+<!--                    </div>-->
+                </fieldset>
+            </div>
+        </div>
+    </div>
+
+    <div style="float: right">
+        <button type="button" class="btn btn-w-m btn-info" onclick="foreachSearch()">定时查询车票</button>
+    </div>
+
+    <!--    <div class="ibox-content">-->
+    <!--        <div class="row">-->
+    <!--            <div class="col-sm-4">-->
+    <!--                <div class="panel panel-success">-->
+    <!--                    <div class="panel-heading">-->
+    <!--                        时间：17:50-->
+    <!--                    </div>-->
+    <!--                    <div class="panel-body">-->
+    <!--                        <p>上车点：世界之窗 &nbsp;&nbsp; 下车点：理工</p>-->
+    <!--                        <p>票价：19.90 &nbsp;&nbsp; 余票：0 </p>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
 </div>
 </body>
 <!-- 全局js -->
@@ -145,31 +189,31 @@
      * @param msg
      * @param imgUrl
      */
-    function showNotification(title,msg,imgUrl){
+    function showNotification(title, msg, imgUrl) {
         var Notification = window.Notification || window.mozNotification || window.webkitNotification;
         // 判断浏览器是否支持桌面通知
-        if(Notification){
-            Notification.requestPermission(function(result){
+        if (Notification) {
+            Notification.requestPermission(function (result) {
                 //result 默认值'default'等同于拒绝 'denied' -用户选择了拒绝 'granted' -用户同意启用通知
                 console.log(result);
-                if("granted" != result){
+                if ("granted" != result) {
                     alert('请授权浏览器能够进行通知!');
                     return false;
-                }else{
-                    var tag = "sds"+Math.random();
+                } else {
+                    var tag = "sds" + Math.random();
                     var notify = new Notification(
                         title,
                         {
-                            dir:'auto',
-                            lang:'zh-CN',
-                            tag:tag,//实例化的notification的id
-                            icon:imgUrl,//通知的缩略图,icon 支持ico、png、jpg、jpeg格式
-                            title:title, //通知的标题
-                            body:msg //通知的具体内容
+                            dir: 'auto',
+                            lang: 'zh-CN',
+                            tag: tag,//实例化的notification的id
+                            icon: imgUrl,//通知的缩略图,icon 支持ico、png、jpg、jpeg格式
+                            title: title, //通知的标题
+                            body: msg //通知的具体内容
                         }
                     );
                     // 定义通知窗口点击函数
-                    notify.οnclick=function(){
+                    notify.οnclick = function () {
                         //如果通知消息被点击,通知窗口将被激活
                         window.focus();
                     };
@@ -183,9 +227,9 @@
                         // var audio = new Audio("./10418.wav");
                         // audio.play();
                         // 窗口显示3S后关闭
-                        setTimeout(function(){
+                        setTimeout(function () {
                             notify.close();
-                        },3000);
+                        }, 3000);
                     };
                     // 定义通知关闭事件
                     notify.onclose = function () {
@@ -193,7 +237,7 @@
                     };
                 }
             });
-        }else{
+        } else {
             // 提示不支持系统通知
             alert('您的浏览器不支持系统通知,建议使用Chrome浏览');
         }
@@ -212,15 +256,16 @@
         opt.url = opt.url || '';
         opt.async = opt.async || true;
         opt.data = opt.data || null;
-        opt.success = opt.success || function () {};
+        opt.success = opt.success || function () {
+        };
         var xmlHttp = null;
         if (XMLHttpRequest) {
             xmlHttp = new XMLHttpRequest();
-        }
-        else {
+        } else {
             xmlHttp = new ActiveXObject('Microsoft.XMLHTTP');
-        }var params = [];
-        for (var key in opt.data){
+        }
+        var params = [];
+        for (var key in opt.data) {
             params.push(key + '=' + opt.data[key]);
         }
         var postData = params.join('&');
@@ -228,20 +273,18 @@
             xmlHttp.open(opt.method, opt.url, opt.async);
             xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
             xmlHttp.send(postData);
-        }
-        else if (opt.method.toUpperCase() === 'GET') {
+        } else if (opt.method.toUpperCase() === 'GET') {
             xmlHttp.open(opt.method, opt.url + '?' + postData, opt.async);
             xmlHttp.send(null);
         }
         xmlHttp.onreadystatechange = function () {
             if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-                opt.success(JSON.parse( xmlHttp.responseText));//如果不是json数据可以去掉json转换
+                opt.success(JSON.parse(xmlHttp.responseText));//如果不是json数据可以去掉json转换
             }
         };
     }
 
-    function writeResult(result)
-    {
+    function writeResult(result) {
         //获取div
         document.getElementById("result").innerText = result;
     }
@@ -264,10 +307,12 @@
     // 出发城市选择
     function startCityChange() {
         var city = $("#cityStart").find("option:selected").text();
-        var cityStationArr = {$stationSelect|raw};
+        var cityStationArr = {$stationSelect | raw
+    }
+        ;
 
         var string = '';
-        for (var i=0; i < cityStationArr[city].length; i++) {
+        for (var i = 0; i < cityStationArr[city].length; i++) {
             string += '<option>' + cityStationArr[city][i] + '</option>'
         }
         $('#stationStart').html(string);
@@ -275,11 +320,11 @@
 
     // 到达城市选择
     function endCityChange() {
-        var city = $("#endStart").find("option:selected").text();
-        var cityStationArr = {$stationSelect|raw};
+        var city = $("#cityEnd").find("option:selected").text();
+        var cityStationArr = {$stationSelect | raw};
 
         var string = '';
-        for (var i=0; i < cityStationArr[city].length; i++) {
+        for (var i = 0; i < cityStationArr[city].length; i++) {
             string += '<option>' + cityStationArr[city][i] + '</option>'
         }
         $('#stationEnd').html(string);
@@ -287,8 +332,100 @@
 
     // 查询车次
     function searchBug() {
+        console.log('查询车次');
+        let cityStart = $("#cityStart").find("option:selected").text();
+        let cityEnd = $("#cityEnd").find("option:selected").text();
+        let stationStart = $("#stationStart").find("option:selected").text();
+        let stationEnd = $("#stationEnd").find("option:selected").text();
+        let schDate = $('input[name="schDate"]').val();
+        if (!cityStart || !cityEnd || !stationEnd || !stationStart) {
+            alert('请选择城市或者站点');
+            return false;
+        }
+        if (!schDate) {
+            alert('请选择日期');
+            return false;
+        }
+        if (cityStart === cityEnd) {
+            alert('出发城市和到达城市不可一样');
+            return false;
+        }
+        if (stationStart === stationEnd) {
+            alert('出发站点和到达站点不可一样');
+            return false;
+        }
+
+        // 查询
+        ajax({
+            method: 'POST',
+            data: {
+                cityStart,
+                stationStart,
+                cityEnd,
+                stationEnd,
+                schDate,
+            },
+            url: "{:url('index/bus/ask')}",
+            success: function (data) {
+                //在这里对获取的数据经常操作
+                console.log(data);
+                if (data.status !== 1) {
+                    alert(data.msg);
+                }
+                let bugArr = data.data;
+
+                // 循环展示车票
+                var string = '';
+                for (let index in bugArr) {
+                    console.log(bugArr[index]);
+                    string += '<div class="radio radio-info radio-inline">' +
+                        '<input type="radio" id="inlineRadio' + bugArr[index].id +  '" value="' + bugArr[index].id + '" name="radioInline" checked="">' +
+                        '<label for="inlineRadio' + bugArr[index].id + '" > 时间：' + bugArr[index].schTime + ' 票价：' + bugArr[index].fullPrice + '  余票：' + bugArr[index].surplus + ' </label>' +
+                        '</div>';
+                }
+                $('#bug-radio').html(string);
+            }
+        });
+    }
+
+    function foreachSearch()
+    {
+        console.log('定时查询')
+        let planId = $(':radio[name="radioInline"]:checked').val();
+        console.log(planId)
+        if (!planId) {
+            alert('请选择无票的车次');
+            return false;
+        }
+
 
     }
+
+    // 定时查询
+    var bugSearchTimer = setInterval(function() {
+        ajax({
+            method: 'GET',
+            data: {
+                planId
+            },
+            url: "https://passenger.wyebus.com/api/v2/passenger/plan/detail",
+            success: function (data) {
+                writeResult('查询中');
+                if (data.code !== 1000) {
+                    // 请求失败，应该断开
+                    showNotification('系统通知', '您查询的车次有票了', '');
+                    clearInterval(bugSearchTimer);
+                }
+
+                if (data.data.surplus !== 0) {
+                    // 有票
+                    showNotification('系统通知', '您查询的车次有票了', '');
+                    clearInterval(bugSearchTimer);
+                }
+            }
+        });
+    }, 10000);
+
     $(document).ready(function () {
         $('#data_1 .input-group.date').datepicker({
             todayBtn: "linked",
