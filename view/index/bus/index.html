@@ -94,9 +94,7 @@
         </div>
 
         <div class="col-sm-4">
-            <select class="form-control m-b" id="stationStart">
-
-            </select>
+            <select class="form-control m-b chosen-select" id="stationStart" style="width:350px;"></select>
         </div>
     </div>
 
@@ -118,9 +116,7 @@
         </div>
 
         <div class="col-sm-4">
-            <select class="form-control m-b chosen-select" id="stationEnd" style="width:350px;">
-
-            </select>
+            <select class="form-control m-b chosen-select" id="stationEnd" style="width:350px;"></select>
         </div>
     </div>
 
@@ -473,6 +469,8 @@
 
 
     $(document).ready(function () {
+        startCityChange();
+        endCityChange();
         $('#data_1 .input-group.date').datepicker({
             todayBtn: "linked",
             keyboardNavigation: false,
@@ -480,6 +478,7 @@
             calendarWeeks: true,
             autoclose: true
         });
+
         var config = {
             '.chosen-select': {},
             '.chosen-select-deselect': {
@@ -498,8 +497,7 @@
         for (var selector in config) {
             $(selector).chosen(config[selector]);
         }
-        startCityChange();
-        endCityChange();
+
     })
 </script>
 <script>
