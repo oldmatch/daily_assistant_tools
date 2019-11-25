@@ -56,6 +56,24 @@
         .radio.radio-inline {
             margin: 20px 20px;
         }
+        .search {
+            float: right;
+            position: relative;
+        }
+        .search .btn-info{
+            padding-left: 20px;
+        }
+        #loading {
+            z-index:1;
+            padding:5px 0 5px 29px;
+            background:url("/static/Hplus/img/loading.gif") no-repeat 10px top;
+            left: -6px;
+            top: 10px;
+            width:90px;
+            height:21px;
+            position: absolute;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -145,11 +163,10 @@
         </div>
     </div>
 
-    <div style="float: right">
-        <button type="button" class="btn btn-w-m btn-info" onclick="foreachSearch()">定时查询车票</button>
+    <div class="search">
+        <div id="loading"></div>
+        <button id="search-button" type="button" class="btn btn-w-m btn-info" onclick="foreachSearch()">定时查询车票</button>
     </div>
-
-    <div id="result"></div>
 
     <!--    <div class="ibox-content">-->
     <!--        <div class="row">-->
@@ -290,6 +307,7 @@
     }
 
     function writeResult(result) {
+        console.log(result);
         //获取div
         // document.getElementById("result").innerText = result;
         $('#result').innerText = result;
@@ -383,9 +401,9 @@
                 // 循环展示车票
                 var string = '';
                 for (let index in bugArr) {
-                    console.log(bugArr[index]);
+                    let status = bugArr[index].surplus === 0 ? '' : 'disabled';
                     string += '<div class="radio radio-info radio-inline">' +
-                        '<input type="radio" id="inlineRadio' + bugArr[index].id +  '" value="' + bugArr[index].id + '" name="radioInline" checked="">' +
+                        '<input type="radio" id="inlineRadio' + bugArr[index].id +  '" value="' + bugArr[index].id + '" name="radioInline" ' + status + '>' +
                         '<label for="inlineRadio' + bugArr[index].id + '" > 时间：' + bugArr[index].schTime + ' 票价：' + bugArr[index].fullPrice + '  余票：' + bugArr[index].surplus + ' </label>' +
                         '</div>';
                 }
@@ -398,14 +416,14 @@
     // 点击定时查询车票
     function foreachSearch()
     {
-        console.log('定时查询')
         let planId = $(':radio[name="radioInline"]:checked').val();
         console.log(planId)
         if (!planId) {
             alert('请选择无票的车次');
             return false;
         }
-
+        $("#loading").css('display', 'block');
+        $('#search-button').attr("disabled", true);
         searchTimer(planId);
     }
 
@@ -419,16 +437,19 @@
                 },
                 url: "https://passenger.wyebus.com/api/v2/passenger/plan/detail",
                 success: function (data) {
-                    writeResult('查询中');
                     if (data.code !== 1000) {
                         // 请求失败，应该断开
                         showNotification('系统通知', '查询失败，请重试', '');
+                        $("#loading").css('display', 'none');
+                        $('#search-button').attr("disabled", false);
                         clearInterval(bugSearchTimer);
                     }
 
                     if (data.data.surplus !== 0) {
                         // 有票
                         showNotification('系统通知', '您查询的车次有票了', '');
+                        $("#loading").css('display', 'none');
+                        $('#search-button').attr("disabled", false);
                         clearInterval(bugSearchTimer);
                     }
                 }
