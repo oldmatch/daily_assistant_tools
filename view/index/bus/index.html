@@ -93,8 +93,7 @@
             <span>站点</span>
         </div>
 
-        <div class="col-sm-4">
-            <select class="form-control m-b chosen-select" id="stationStart" style="width:350px;"></select>
+        <div class="col-sm-4" id="stationStartDiv">
         </div>
     </div>
 
@@ -115,8 +114,7 @@
             <span>站点</span>
         </div>
 
-        <div class="col-sm-4">
-            <select class="form-control m-b chosen-select" id="stationEnd" style="width:350px;"></select>
+        <div class="col-sm-4" id="stationEndDiv">
         </div>
     </div>
 
@@ -326,28 +324,34 @@
 
     // 出发城市选择
     function startCityChange() {
+        console.log('stationStart start')
         var city = $("#cityStart").find("option:selected").text();
-        var cityStationArr = {$stationSelect | raw
-    }
-        ;
+        var cityStationArr = {$stationSelect | raw};
 
-        var string = '';
+        var string = '<select class="form-control m-b chosen-select" id="stationStart" style="width:350px;">';
         for (var i = 0; i < cityStationArr[city].length; i++) {
             string += '<option>' + cityStationArr[city][i] + '</option>'
         }
-        $('#stationStart').html(string);
+        string += '</select>';
+        $('#stationStartDiv').empty();
+        $('#stationStartDiv').html(string);
+        $('#stationStart').chosen({});
     }
 
     // 到达城市选择
     function endCityChange() {
+        console.log('stationEnd start')
         var city = $("#cityEnd").find("option:selected").text();
         var cityStationArr = {$stationSelect | raw};
 
-        var string = '';
+        var string = '<select class="form-control m-b chosen-select" id="stationEnd" style="width:350px;">';
         for (var i = 0; i < cityStationArr[city].length; i++) {
             string += '<option>' + cityStationArr[city][i] + '</option>'
         }
-        $('#stationEnd').html(string);
+        string += '</select>';
+        $('#stationEndDiv').empty();
+        $('#stationEndDiv').html(string);
+        $('#stationEnd').chosen({});
     }
 
     // 查询车次
@@ -478,26 +482,6 @@
             calendarWeeks: true,
             autoclose: true
         });
-
-        var config = {
-            '.chosen-select': {},
-            '.chosen-select-deselect': {
-                allow_single_deselect: true
-            },
-            '.chosen-select-no-single': {
-                disable_search_threshold: 10
-            },
-            '.chosen-select-no-results': {
-                no_results_text: 'Oops, nothing found!'
-            },
-            '.chosen-select-width': {
-                width: "95%"
-            }
-        }
-        for (var selector in config) {
-            $(selector).chosen(config[selector]);
-        }
-
     })
 </script>
 <script>
