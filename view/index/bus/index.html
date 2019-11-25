@@ -10,6 +10,7 @@
     <link href="/static/Hplus/css/bootstrap.min.css?" rel="stylesheet">
     <link href="/static/Hplus/css/font-awesome.css" rel="stylesheet">
     <link href="/static/Hplus/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="/static/Hplus/css/plugins/chosen/chosen.css" rel="stylesheet">
     <link href="/static/Hplus/css/animate.css" rel="stylesheet">
     <link href="/static/Hplus/css/style.css" rel="stylesheet">
     <link href="/static/Hplus/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
@@ -117,7 +118,7 @@
         </div>
 
         <div class="col-sm-4">
-            <select class="form-control m-b" id="stationEnd">
+            <select class="form-control m-b chosen-select" id="stationEnd" style="width:350px;">
 
             </select>
         </div>
@@ -199,6 +200,8 @@
 
 <!-- Data picker -->
 <script src="/static/Hplus/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+<!--<script src="/static/Hplus/js/demo/form-advanced-demo.js"></script>-->
 
 
 <script type="text/javascript">
@@ -477,6 +480,24 @@
             calendarWeeks: true,
             autoclose: true
         });
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': {
+                allow_single_deselect: true
+            },
+            '.chosen-select-no-single': {
+                disable_search_threshold: 10
+            },
+            '.chosen-select-no-results': {
+                no_results_text: 'Oops, nothing found!'
+            },
+            '.chosen-select-width': {
+                width: "95%"
+            }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
         startCityChange();
         endCityChange();
     })
