@@ -53,6 +53,9 @@
         .ibox-content {
             margin-top: 50px;
         }
+        .radio.radio-inline {
+            margin: 20px 20px;
+        }
     </style>
 </head>
 <body>
@@ -145,6 +148,8 @@
     <div style="float: right">
         <button type="button" class="btn btn-w-m btn-info" onclick="foreachSearch()">定时查询车票</button>
     </div>
+
+    <div id="result"></div>
 
     <!--    <div class="ibox-content">-->
     <!--        <div class="row">-->
@@ -286,7 +291,8 @@
 
     function writeResult(result) {
         //获取div
-        document.getElementById("result").innerText = result;
+        // document.getElementById("result").innerText = result;
+        $('#result').innerText = result;
     }
 
     //十秒请求一次查询，有票就提示
@@ -388,6 +394,8 @@
         });
     }
 
+    var bugSearchTimer;
+    // 点击定时查询车票
     function foreachSearch()
     {
         console.log('定时查询')
@@ -398,33 +406,36 @@
             return false;
         }
 
-
+        searchTimer(planId);
     }
 
-    // 定时查询
-    var bugSearchTimer = setInterval(function() {
-        ajax({
-            method: 'GET',
-            data: {
-                planId
-            },
-            url: "https://passenger.wyebus.com/api/v2/passenger/plan/detail",
-            success: function (data) {
-                writeResult('查询中');
-                if (data.code !== 1000) {
-                    // 请求失败，应该断开
-                    showNotification('系统通知', '您查询的车次有票了', '');
-                    clearInterval(bugSearchTimer);
-                }
+    function searchTimer(planId) {
+        // 定时查询
+        bugSearchTimer = setInterval(function() {
+            ajax({
+                method: 'GET',
+                data: {
+                    planId
+                },
+                url: "https://passenger.wyebus.com/api/v2/passenger/plan/detail",
+                success: function (data) {
+                    writeResult('查询中');
+                    if (data.code !== 1000) {
+                        // 请求失败，应该断开
+                        showNotification('系统通知', '查询失败，请重试', '');
+                        clearInterval(bugSearchTimer);
+                    }
 
-                if (data.data.surplus !== 0) {
-                    // 有票
-                    showNotification('系统通知', '您查询的车次有票了', '');
-                    clearInterval(bugSearchTimer);
+                    if (data.data.surplus !== 0) {
+                        // 有票
+                        showNotification('系统通知', '您查询的车次有票了', '');
+                        clearInterval(bugSearchTimer);
+                    }
                 }
-            }
-        });
-    }, 10000);
+            });
+        }, 10000);
+    }
+
 
     $(document).ready(function () {
         $('#data_1 .input-group.date').datepicker({
