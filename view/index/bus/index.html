@@ -15,6 +15,7 @@
     <link href="/static/Hplus/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
     <link href="/static/Hplus/css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
 
+
     <link href="/static/Hplus/css/bootstrap.min.css?" rel="stylesheet">
     <link href="/static/Hplus/css/font-awesome.css" rel="stylesheet">
 
@@ -26,7 +27,6 @@
     <link href="/static/Hplus/css/style.css" rel="stylesheet">
 
     <link href="/static/Hplus/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
-
     <style>
         body {
             text-align: center
@@ -34,9 +34,6 @@
 
         .divCss {
             margin: 100px auto;
-            border: 1px dotted #8B91A0;
-            width: 1000px;
-            height: 600px;
             padding: 50px;
         }
 
@@ -374,10 +371,10 @@
             alert('出发城市和到达城市不可一样');
             return false;
         }
-        if (stationStart === stationEnd) {
-            alert('出发站点和到达站点不可一样');
-            return false;
-        }
+        // if (stationStart === stationEnd) {
+        //     alert('出发站点和到达站点不可一样');
+        //     return false;
+        // }
 
         // 查询
         ajax({
@@ -404,7 +401,21 @@
                     let status = bugArr[index].surplus === 0 ? '' : 'disabled';
                     string += '<div class="radio radio-info radio-inline">' +
                         '<input type="radio" id="inlineRadio' + bugArr[index].id +  '" value="' + bugArr[index].id + '" name="radioInline" ' + status + '>' +
-                        '<label for="inlineRadio' + bugArr[index].id + '" > 时间：' + bugArr[index].schTime + ' 票价：' + bugArr[index].fullPrice + '  余票：' + bugArr[index].surplus + ' </label>' +
+                        '<label for="inlineRadio' + bugArr[index].id + '" > '
+                        +
+                        '<div class="panel panel-success">' +
+                            '<div class="panel-heading">' +
+                            bugArr[index].schTime +
+                            '</div>'+
+                            '<div class="panel-body">' +
+                            '<p>上：' + bugArr[index].cityStart + '-' + bugArr[index].station + '</p>' +
+                            '<p>下：' + bugArr[index].cityEnd + '-' + bugArr[index].dstStation + '</p>' +
+                            '<p>票价：'+ bugArr[index].fullPrice +' &nbsp;&nbsp; 余票：' + bugArr[index].surplus + ' </p>' +
+                            '</div>' +
+                        '</div>'
+                        // '时间：' + bugArr[index].schTime + ' 票价：' + bugArr[index].fullPrice + '  余票：' + bugArr[index].surplus
+                        +
+                        ' </label>' +
                         '</div>';
                 }
                 $('#bug-radio').html(string);
