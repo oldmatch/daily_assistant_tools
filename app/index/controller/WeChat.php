@@ -58,14 +58,11 @@ class WeChat extends BaseController
 
                 $insert = [
                     'nickname' => $userInfo['nickname'],
-                    'phone' => $userInfo['nickname'],
                     'avatar' => $userInfo['headimgurl'],
                     'openid' => $openid,
                 ];
                 $userModel->save($insert);
                 $info = $insert;
-            } else {
-                // 更新用户信息
             }
 
             $data = [
