@@ -33,4 +33,10 @@ return [
     'error_message'    => '页面错误！请稍后再试～',
     // 显示错误信息
     'show_error_msg'   => true,
+
+    // WeChat
+    'wechat' => [
+        'appid'     => 'wxc103a4fc09753cb6',
+        'secret'    => '8e915b88e97f2a8d335e42afe806b42a',
+    ],
 ];
