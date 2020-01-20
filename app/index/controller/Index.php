@@ -8,4 +8,9 @@ class Index
     {
         return view();
     }
+
+    public function notPage()
+    {
+        return view();
+    }
 }

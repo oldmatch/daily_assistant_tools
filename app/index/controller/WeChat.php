@@ -38,7 +38,7 @@ class WeChat extends BaseController
             $res = json_decode($res, true);
             if (isset($res['errcode']) || empty($res['openid']) || empty($res['access_token'])) {
                 // 失败
-                return redirect($redirect_uri);
+                return redirect(url('index/Index/notPage'));
             }
 
             // 判断用户是否存在
@@ -48,9 +48,13 @@ class WeChat extends BaseController
                 // 查询用户信息插入用户
                 $accessToken = $res['access_token'];
                 $openid = $res['openid'];
-                $userUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=$accessToken&$openid=&lang=zh_CN";
+                $userUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=$accessToken&openid=$openid&lang=zh_CN";
                 $userInfo = curlRequest($userUrl);
                 $userInfo = json_decode($userInfo, true);
+                if (isset($userInfo['errcode']) || !empty($userInfo['errcode'])) {
+                    // 失败
+                    return redirect(url('index/Index/notPage'));
+                }
 
                 $insert = [
                     'nickname' => $userInfo['nickname'],
