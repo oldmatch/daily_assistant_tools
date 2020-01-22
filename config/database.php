@@ -59,5 +59,14 @@ return [
         ],
 
         // 更多的数据库配置信息
+        // mongoDB数据库
+        'db_mongo' => [
+            'type'        =>   'mongo',
+            'hostname'    =>   '101.132.123.117',
+            'database'    =>   'lkz',
+            'username'    =>   '',
+            'password'    =>   '',
+            'hostport'    =>   27017,
+        ],
     ],
 ];
