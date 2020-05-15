@@ -13,10 +13,9 @@ class Test
         $imageSnappy = new Image(__DIR__ . '/../../../vendor/h4cc/wkhtmltoimage-amd64/bin/wkhtmltoimage-amd64');
 
         // 如果有中文的话，需要添加中文字体
-        $ttf = __DIR__ . '/../../../public/ttf/sc.ttc';
+//        $ttf = __DIR__ . '/../../../public/ttf/sc.ttc';
         // 需要合成的图片地址，base64也可以的，其实跟这个也无关，主要是html能静态展示，那么合成的就是什么样的
-        $image_url = 'https://www.php.net/images/logos/php-logo.svg';
-        $name = 'wkhtmltoimage';
+        $name = '2343242343434adsad';
 
 // html代码，随意搞了搞，真实使用的话，需要用心调整样式哦~
         $htmlTemplate = <<<EOF
@@ -32,7 +31,6 @@ class Test
 <style>
     @font-face {
         font-family: myFirstFont;
-        src: url('{$ttf}');
     }
 
     body {
@@ -57,14 +55,13 @@ class Test
     }
 </style>
 <body>
-<img src="{$image_url}" class="image">
+<img src="https://owohac-oss.oss-cn-shenzhen.aliyuncs.com/adopt/admin_web/202005/08/8e64d2139b9e0db56f7cb906d56fcbfb.jpg" class="image">
 <div class="content">
     <text>{$name}</text>
 </div>
 </body>
 </html>
 EOF;
-
         $output = __DIR__ . '/../../../public/demo/' . time() . '.jpg';
         $imageSnappy->generateFromHtml($htmlTemplate, $output);
 
