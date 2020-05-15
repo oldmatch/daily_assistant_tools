@@ -69,24 +69,23 @@ class Test
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>双十一电商活动</title>
   <style>
-  
     @font-face {
         font-family: myFirstFont;
          src: url('{$ttf}');
+    }
+    body {
+      font-family: myFirstFont;
+      width: 100%;
+      overflow-x: hidden;
     }
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-    body {
-      width: 100%;
-      overflow-x: hidden;
-    }
+    
     a {
       display: block;
     }
@@ -95,48 +94,6 @@ class Test
       height: 0;
       padding-bottom: 90%;
       background: url('https://res2.owohpet.cn/web/owoh_11_electricity_activity/bg1.jpg') no-repeat center center;
-      background-size: cover;
-    }
-    .bg2 {
-      width: 100%;
-      height: 0;
-      padding-bottom: 117.73%;
-      background: url('https://res2.owohpet.cn/web/owoh_11_electricity_activity/bg2.jpg') no-repeat center center;
-      background-size: cover;
-    }
-    .bg3 {
-      width: 100%;
-      height: 0;
-      padding-bottom: 165.33%;
-      background: url('https://res2.owohpet.cn/web/owoh_11_electricity_activity/bg3.jpg') no-repeat center center;
-      background-size: cover;
-    }
-    .bg3_1 {
-      width: 100%;
-      height: 0;
-      padding-bottom: 41.73%;
-      background: url('https://res2.owohpet.cn/web/owoh_11_electricity_activity/bg3_1.jpg') no-repeat center center;
-      background-size: cover;
-    }
-    .bg3_2 {
-      width: 100%;
-      height: 0;
-      padding-bottom: 32.13%;
-      background: url('https://res2.owohpet.cn/web/owoh_11_electricity_activity/bg3_2.jpg') no-repeat center center;
-      background-size: cover;
-    }
-    .bg3_3 {
-      width: 100%;
-      height: 0;
-      padding-bottom: 31.33%;
-      background: url('https://res2.owohpet.cn/web/owoh_11_electricity_activity/bg3_3.jpg') no-repeat center center;
-      background-size: cover;
-    }
-    .bg3_4 {
-      width: 100%;
-      height: 0;
-      padding-bottom: 60.13%;
-      background: url('https://res2.owohpet.cn/web/owoh_11_electricity_activity/bg3_4.jpg') no-repeat center center;
       background-size: cover;
     }
     .bg4 {
@@ -177,12 +134,6 @@ class Test
 <body>
   <div class="container">
     <div class="bg1"></div>
-    <div class="bg2"></div>
-    <!-- <div class="bg3"></div> -->
-    <div class="bg3_1"></div>
-    <a class="bg3_2" href="owoh://eshop?region=china&url=https%3A%2F%2F100000578934.retail.n.weimob.com%2Fsaas%2Fretail%2F100000578934%2F240077934%2Fshop%2Findex%3Fessharewid%3D1430529241%26id%3D519228"></a>
-    <a class="bg3_3" href="owoh://eshop?region=china&url=https%3A%2F%2F100000578934.retail.n.weimob.com%2Fsaas%2Fretail%2F100000578934%2F240077934%2Fshop%2Findex%3Fessharewid%3D1430529241%26id%3D519228"></a>
-    <div class="bg3_4"></div>
     <div class="bg4">
       <div class="text">
         <p>OwOh 宠物生活馆官方客服</p>
