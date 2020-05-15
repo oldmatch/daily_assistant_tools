@@ -74,12 +74,17 @@ class Test
     <title>双十一电商活动</title>
     <script src="https://res2.owohpet.cn/web/rem.js"></script>
     <style>
+        @font-face {
+            font-family: myFirstFont;
+            src: url('{$ttf}');
+        }
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
         body {
+            font-family: myFirstFont;
             width: 100%;
             overflow-x: hidden;
         }
