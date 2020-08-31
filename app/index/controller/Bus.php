@@ -2,6 +2,8 @@
 namespace app\index\controller;
 
 use app\BaseController;
+use Flc\Dysms\Client;
+use Flc\Dysms\Request\SendSms;
 use think\facade\Request;
 use think\facade\View;
 

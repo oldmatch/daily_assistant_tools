@@ -4,8 +4,51 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4e72bd39f54744ff50819e0b1b61fc6a",
+    "content-hash": "1a78a9f076b1f34412f29135f67484da",
     "packages": [
+        {
+            "name": "flc/dysms",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/flc1125/dysms.git",
+                "reference": "9786bd8f462d64def83af9432315c752a42627c5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/flc1125/dysms/zipball/9786bd8f462d64def83af9432315c752a42627c5",
+                "reference": "9786bd8f462d64def83af9432315c752a42627c5",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Flc\\Dysms\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "阿里短信-适用Laravel、Yii、Thinkphp等任何PHP项目...",
+            "keywords": [
+                "alisms",
+                "aliyun",
+                "dysms",
+                "flc",
+                "阿里短信"
+            ],
+            "time": "2019-04-05T16:40:06+00:00"
+        },
         {
             "name": "h4cc/wkhtmltoimage-amd64",
             "version": "0.12.4",
@@ -51,52 +94,6 @@
                 "wkhtmltoimage"
             ],
             "time": "2018-01-15T07:23:40+00:00"
-        },
-        {
-            "name": "h4cc/wkhtmltoimage-i386",
-            "version": "0.12.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/h4cc/wkhtmltoimage-i386.git",
-                "reference": "64f7a1c7d1e42d6741e22a080206c00c4899e88b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/h4cc/wkhtmltoimage-i386/zipball/64f7a1c7d1e42d6741e22a080206c00c4899e88b",
-                "reference": "64f7a1c7d1e42d6741e22a080206c00c4899e88b",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
-            },
-            "bin": [
-                "bin/wkhtmltoimage-i386"
-            ],
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPL Version 3"
-            ],
-            "authors": [
-                {
-                    "name": "Julius Beckmann",
-                    "email": "github@h4cc.de"
-                }
-            ],
-            "description": "Convert html to image using webkit (qtwebkit). Static linked linux binary for i386 systems.",
-            "homepage": "http://wkhtmltopdf.org/",
-            "keywords": [
-                "binary",
-                "convert",
-                "image",
-                "snapshot",
-                "thumbnail",
-                "wkhtmltoimage"
-            ],
-            "time": "2018-01-15T07:28:21+00:00"
         },
         {
             "name": "knplabs/knp-snappy",
@@ -1569,6 +1566,52 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "h4cc/wkhtmltoimage-i386",
+            "version": "0.12.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/h4cc/wkhtmltoimage-i386.git",
+                "reference": "64f7a1c7d1e42d6741e22a080206c00c4899e88b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/h4cc/wkhtmltoimage-i386/zipball/64f7a1c7d1e42d6741e22a080206c00c4899e88b",
+                "reference": "64f7a1c7d1e42d6741e22a080206c00c4899e88b",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "bin": [
+                "bin/wkhtmltoimage-i386"
+            ],
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL Version 3"
+            ],
+            "authors": [
+                {
+                    "name": "Julius Beckmann",
+                    "email": "github@h4cc.de"
+                }
+            ],
+            "description": "Convert html to image using webkit (qtwebkit). Static linked linux binary for i386 systems.",
+            "homepage": "http://wkhtmltopdf.org/",
+            "keywords": [
+                "binary",
+                "convert",
+                "image",
+                "snapshot",
+                "thumbnail",
+                "wkhtmltoimage"
+            ],
+            "time": "2018-01-15T07:28:21+00:00"
+        },
         {
             "name": "topthink/think-trace",
             "version": "v1.3",

@@ -457,14 +457,29 @@
                         $("#loading").css('display', 'none');
                         $('#search-button').attr("disabled", false);
                         clearInterval(bugSearchTimer);
-                    }
+                    } else {
+                        if (data.data.surplus !== 0) {
+                            // 有票
+                            // 发短信及通知
+                            ajax({
+                                method: 'GET',
+                                data: {
+                                    'schDate': data.data.schDate,
+                                    'schTime': data.data.schTime,
+                                    'surplus': data.data.surplus,
+                                    'password': 'lkz是最帅的'
+                                },
+                                url: "{:url('index/index/sendSms')}",
+                                success: function (data) {
+                                    // 不鸟了
+                                }
+                            });
 
-                    if (data.data.surplus !== 0) {
-                        // 有票
-                        showNotification('系统通知', '您查询的车次有票了', '');
-                        $("#loading").css('display', 'none');
-                        $('#search-button').attr("disabled", false);
-                        clearInterval(bugSearchTimer);
+                            showNotification('系统通知', '您查询的车次有票了', '');
+                            $("#loading").css('display', 'none');
+                            $('#search-button').attr("disabled", false);
+                            clearInterval(bugSearchTimer);
+                        }
                     }
                 }
             });
