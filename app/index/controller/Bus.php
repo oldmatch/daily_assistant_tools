@@ -15,7 +15,11 @@ class Bus extends BaseController
         $citySelect = [
             '东莞市',
             '深圳市',
-            '广州市'
+            '广州市',
+            '珠海市',
+            '佛山市',
+            '江门市',
+            '惠州市'
         ];
 
         $stationSelect = [
