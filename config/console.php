@@ -5,6 +5,5 @@
 return [
     // 指令定义
     'commands' => [
-        'hello' => 'app\command\Hello',
     ],
 ];
