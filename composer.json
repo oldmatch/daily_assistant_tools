@@ -25,7 +25,8 @@
         "oldmatch/helper": "^1.0",
         "knplabs/knp-snappy": "^1.2",
         "h4cc/wkhtmltoimage-amd64": "^0.12.4",
-        "flc/dysms": "^1.0"
+        "flc/dysms": "^1.0",
+        "php-amqplib/php-amqplib": ">=2.9.0"
     },
     "require-dev": {
         "symfony/var-dumper": "^4.2",
